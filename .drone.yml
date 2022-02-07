@@ -21,7 +21,7 @@ steps:
         from_secret: BOT_TOKEN
       to:
         from_secret: USER_ID
-      disable.webpage.preview: true
+      disable.webpage.preview: false
       message: >
         *Build #{{build.number}} of {{repo.namespace}}/{{repo.name}}*
         
