@@ -1,8 +1,30 @@
 kind: pipeline
+type: docker
 name: defalue
 
 steps:
   - name: build
     image: maven:3.8.4-jdk-11
+    volumes:
+      - name: maven-build
+        path: /app/build
+      - name: maven-cache
+        path: /root/.m2
+    environment:
+      USER_ID:
+        from_secret: USER_ID
+      BOT_TOKEN:
+        from_secret: BOT_TOKEN
     commands:
       - mvn clean package
+      - ls -al
+      - cp target/*.jar /app/build
+      - curl -s -o /dev/null -G -d "chat_id=$USER_ID" -d "text=DroneCI%20Notice%0ASpring%20Boot%20Project%3A%20DroneCIDemo%0APackaging%20completed%20at%3A%20$(date +'%Y-%m-%d %H:%M:%S')" https://api.telegram.org/bot${BOT_TOKEN}/sendMessage
+
+volumes:
+  - name: maven-build
+    host:
+      path: /data/maven/build
+  - name: maven-cache
+    host:
+      path: /data/maven/cache
