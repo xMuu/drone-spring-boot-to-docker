@@ -22,11 +22,15 @@ steps:
       to:
         from_secret: USER_ID
       message: >
-        *Repo Info:*
+        #{{repo.owner}}/{{repo.name}}
         
-        {{repo.name}}@{{commit.branch}}
+        Build #{{build.number}} 
         
-        *Author Info:*
+        *Branch:*
+        
+        {{commit.branch}}
+        
+        *Author:*
         
         {{commit.author}} ({{commit.email}})
         
@@ -34,17 +38,11 @@ steps:
         
         {{truncate commit.sha 8}}
         
-        *Commit Message:*
+        *Message:*
         
         {{commit.message}}
         
         *Build Number:*
-        
-        {{build.number}}
-        
-        *Since:*
-        
-        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}
         
         *Build Time:*
         
@@ -54,11 +52,18 @@ steps:
         
         {{#success build.status}}
         
-        Succeeded. Good job.
+        Succeeded.
+        
         {{else}}
         
-        Failed. Fix me please.
+        Failed.
+        
         {{/success}}
+        
+        *Link:*
+        
+        {{build.link}}
+        
 
 volumes:
   - name: maven-build
