@@ -34,7 +34,7 @@ steps:
         <b>Build Number:\n</b>
         {{build.number}}\n
         <b>Since:\n</b>
-        {{datetime build.started}}\n
+        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}\n
         <b>Build Time:\n</b>
         {{since build.started}}\n
         <b>Result:\n</b>
