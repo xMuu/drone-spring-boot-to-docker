@@ -23,19 +23,19 @@ steps:
         from_secret: USER_ID
       disable.webpage.preview: false
       message: >
-        *Build #{{build.number}} of {{repo.namespace}}/{{repo.name}}*
+        *Build #{{build.number}}* of `{{repo.namespace}}/{{repo.name}}`
         
         *Branch:* {{commit.branch}}
         
         *Author:* {{commit.author}} ({{commit.email}})
         
-        *Commit:* [{{truncate commit.sha 8}}]({{commit.link}})
+        *Commit:* `{{truncate commit.sha 8}}`
         
         *Message:* {{commit.message}}
         
         *Build Time:* {{since build.started}}
         
-        *Result:* {{build.status}}
+        *Result:* {{uppercasefirst build.status}}
         
         *Link:* [Click me!]({{build.link}})
 
