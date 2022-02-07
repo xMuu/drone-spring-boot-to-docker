@@ -21,29 +21,15 @@ steps:
         from_secret: BOT_TOKEN
       to:
         from_secret: USER_ID
-      format: html
-#      message: >
-#        <b>Repo Info:</b>
-#        <br>
-#        {{repo.name}}@{{commit.branch}}
-#        <b>Author Info:</b>
-#        {{commit.author}} ({{commit.email}})
-#        <b>Commit:</b>
-#        {{truncate commit.sha 8}}
-#        <b>Commit Message:</b>
-#        {{commit.message}}
-#        <b>Build Number:</b>
-#        {{build.number}}
-#        <b>Since:</b>
-#        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}
-#        <b>Build Time:</b>
-#        {{since build.started}}
-#        <b>Result:</b>
-#        {{#success build.status}}
-#        Succeeded. Good job.
-#        {{else}}
-#        Failed. Fix me please.
-#        {{/success}}
+      message: >
+        Sample message template loaded from file.
+
+        *Environ:* {{tpl.env}}
+        *Version:* {{tpl.version}}
+
+        Commit msg:  {{commit.message}}
+
+        duration: {{duration build.started build.finished}}
 
 volumes:
   - name: maven-build
