@@ -10,16 +10,10 @@ steps:
         path: /app/build
       - name: maven-cache
         path: /root/.m2
-#    environment:
-#      USER_ID:
-#        from_secret: USER_ID
-#      BOT_TOKEN:
-#        from_secret: BOT_TOKEN
     commands:
       - mvn clean package
       - ls -al
       - cp target/*.jar /app/build
-#      - curl -s -G -d "chat_id=$USER_ID" -d "text=DroneCI%20Notice%0ASpring%20Boot%20Project%3A%20DroneCIDemo%0APackaging%20completed%20at%3A%20$(date +'%Y-%m-%d %H:%M:%S')" "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
 
   - name: send telegram notification
     image: appleboy/drone-telegram
