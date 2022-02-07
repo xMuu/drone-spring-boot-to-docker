@@ -23,21 +23,22 @@ steps:
         from_secret: USER_ID
       format: html
       message: >
-        <b>Repo Info:\n</b>
-        {{repo.name}}@{{commit.branch}}\n
-        <b>Author Info:\n</b>
-        {{commit.author}} ({{commit.email}})\n
-        <b>Commit:\n</b>
-        {{truncate commit.sha 8}}\n
-        <b>Commit Message:\n</b>
-        {{commit.message}}\n
-        <b>Build Number:\n</b>
-        {{build.number}}\n
-        <b>Since:\n</b>
-        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}\n
-        <b>Build Time:\n</b>
-        {{since build.started}}\n
-        <b>Result:\n</b>
+        <b>Repo Info:</b>
+        <br>
+        {{repo.name}}@{{commit.branch}}
+        <b>Author Info:</b>
+        {{commit.author}} ({{commit.email}})
+        <b>Commit:</b>
+        {{truncate commit.sha 8}}
+        <b>Commit Message:</b>
+        {{commit.message}}
+        <b>Build Number:</b>
+        {{build.number}}
+        <b>Since:</b>
+        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}
+        <b>Build Time:</b>
+        {{since build.started}}
+        <b>Result:</b>
         {{#success build.status}}
         Succeeded. Good job.
         {{else}}
