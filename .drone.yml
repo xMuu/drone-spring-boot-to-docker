@@ -22,7 +22,7 @@ steps:
       to:
         from_secret: USER_ID
       message: >
-        Build #{{build.number}} of {{repo}}
+        *Build #{{build.number}} of {{repo.namespace}}/{{repo.name}}*
         
         *Branch:* {{commit.branch}}
         
@@ -37,7 +37,6 @@ steps:
         *Result:* {{build.status}}
         
         *Link:* [Click me!]({{build.link}})
-        
 
 volumes:
   - name: maven-build
