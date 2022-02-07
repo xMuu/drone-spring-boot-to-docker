@@ -22,14 +22,43 @@ steps:
       to:
         from_secret: USER_ID
       message: >
-        Sample message template loaded from file.
-
-        *Environ:* {{tpl.env}}
-        *Version:* {{tpl.version}}
-
-        Commit msg:  {{commit.message}}
-
-        duration: {{duration build.started build.finished}}
+        *Repo Info:*
+        
+        {{repo.name}}@{{commit.branch}}
+        
+        *Author Info:*
+        
+        {{commit.author}} ({{commit.email}})
+        
+        *Commit:*
+        
+        {{truncate commit.sha 8}}
+        
+        *Commit Message:*
+        
+        {{commit.message}}
+        
+        *Build Number:*
+        
+        {{build.number}}
+        
+        *Since:*
+        
+        {{datetime build.started "2022-01-01 08:08:08" "Asia/Shanghai"}}
+        
+        *Build Time:*
+        
+        {{since build.started}}
+        
+        *Result:*
+        
+        {{#success build.status}}
+        
+        Succeeded. Good job.
+        {{else}}
+        
+        Failed. Fix me please.
+        {{/success}}
 
 volumes:
   - name: maven-build
