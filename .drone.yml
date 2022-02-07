@@ -22,47 +22,21 @@ steps:
       to:
         from_secret: USER_ID
       message: >
-        #{{repo.owner}}/{{repo.name}}
+        Build #{{build.number}} of {{repo}}
         
-        Build #{{build.number}} 
+        *Branch:* {{commit.branch}}
         
-        *Branch:*
+        *Author:* {{commit.author}} ({{commit.email}})
         
-        {{commit.branch}}
+        *Commit:* {{truncate commit.sha 8}}
         
-        *Author:*
+        *Message:* {{commit.message}}
         
-        {{commit.author}} ({{commit.email}})
+        *Build Time:* {{since build.started}}
         
-        *Commit:*
+        *Result:* {{build.status}}
         
-        {{truncate commit.sha 8}}
-        
-        *Message:*
-        
-        {{commit.message}}
-        
-        *Build Number:*
-        
-        *Build Time:*
-        
-        {{since build.started}}
-        
-        *Result:*
-        
-        {{#success build.status}}
-        
-        Succeeded.
-        
-        {{else}}
-        
-        Failed.
-        
-        {{/success}}
-        
-        *Link:*
-        
-        {{build.link}}
+        *Link:* [Click me!]({{build.link}})
         
 
 volumes:
