@@ -22,23 +22,23 @@ steps:
         from_secret: BOT_TOKEN
       to:
         from_secret: USER_ID
-      format: markdown
+      format: html
       message: >
-        **Repo Info:**
+        <b>Repo Info:</b>
         {{repo.name}}@{{commit.branch}}
-        **Author Info:**
+        <b>Author Info:</b>
         {{commit.author}} ({{commit.email}})
-        **Commit:**
-        {{commit.sha}}
-        **Commit Message:**
+        <b>Commit:</b>
+        {{truncate commit.sha 8}}
+        <b>Commit Message:</b>
         {{commit.message}}
-        **Build Number:**
+        <b>Build Number:</b>
         {{build.number}}
-        **Since:**
-        {{build.started}}
-        **Build Time:**
+        <b>Since:</b>
+        {{date build.started}}
+        <b>Build Time:</b>
         {{since build.started}}
-        **Result:**
+        <b>Result:</b>
         {{#success build.status}}
           Succeeded. Good job.
         {{else}}
