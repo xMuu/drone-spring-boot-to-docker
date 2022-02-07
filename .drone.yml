@@ -24,25 +24,25 @@ steps:
         from_secret: USER_ID
       format: html
       message: >
-        <b>Repo Info:</b>
-        {{repo.name}}@{{commit.branch}}
-        <b>Author Info:</b>
-        {{commit.author}} ({{commit.email}})
-        <b>Commit:</b>
-        {{truncate commit.sha 8}}
-        <b>Commit Message:</b>
-        {{commit.message}}
-        <b>Build Number:</b>
-        {{build.number}}
-        <b>Since:</b>
-        {{date build.started}}
-        <b>Build Time:</b>
-        {{since build.started}}
-        <b>Result:</b>
+        <b>Repo Info:</b> <br />
+        {{repo.name}}@{{commit.branch}} <br />
+        <b>Author Info:</b> <br />
+        {{commit.author}} ({{commit.email}}) <br />
+        <b>Commit:</b> <br />
+        {{truncate commit.sha 8}} <br />
+        <b>Commit Message:</b> <br />
+        {{commit.message}} <br />
+        <b>Build Number:</b> <br />
+        {{build.number}} <br />
+        <b>Since:</b> <br />
+        {{date build.started}} <br />
+        <b>Build Time:</b> <br />
+        {{since build.started}} <br />
+        <b>Result:</b> <br />
         {{#success build.status}}
-          Succeeded. Good job.
+        Succeeded. Good job.
         {{else}}
-          Failed. Fix me please.
+        Failed. Fix me please.
         {{/success}}
 
 volumes:
