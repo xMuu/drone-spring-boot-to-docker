@@ -10,16 +10,41 @@ steps:
         path: /app/build
       - name: maven-cache
         path: /root/.m2
-    environment:
-      USER_ID:
-        from_secret: USER_ID
-      BOT_TOKEN:
-        from_secret: BOT_TOKEN
+#    environment:
+#      USER_ID:
+#        from_secret: USER_ID
+#      BOT_TOKEN:
+#        from_secret: BOT_TOKEN
     commands:
       - mvn clean package
       - ls -al
       - cp target/*.jar /app/build
-      - curl -s -G -d "chat_id=$USER_ID" -d "text=DroneCI%20Notice%0ASpring%20Boot%20Project%3A%20DroneCIDemo%0APackaging%20completed%20at%3A%20$(date +'%Y-%m-%d %H:%M:%S')" "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
+#      - curl -s -G -d "chat_id=$USER_ID" -d "text=DroneCI%20Notice%0ASpring%20Boot%20Project%3A%20DroneCIDemo%0APackaging%20completed%20at%3A%20$(date +'%Y-%m-%d %H:%M:%S')" "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
+
+  - name: send telegram notification
+    image: appleboy/drone-telegram
+    settings:
+      token:
+        from_secret: BOT_TOKEN
+      to:
+        from_secret: USER_ID
+      message: >
+        <b>Repo:</b>
+        {{repo.owner}}/{{repo.name}}@{{commit.branch}}
+        <b>Author:</b>
+        {{commit.author}} ({{commit.email}})
+        <b>Commit:</b>
+        {{commit.sha}}({{commit.branch}}): {{commit.message}} 
+        <b>Build:</b>
+        {{build.number}}
+        <b>Since:</b>
+        {{since build.started}}
+        <b>Result:</b>
+        {{#success build.status}}
+          Succeeded. Good job.
+        {{else}}
+          Failed. Fix me please.
+        {{/success}}
 
 volumes:
   - name: maven-build
