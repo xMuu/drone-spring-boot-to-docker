@@ -28,7 +28,7 @@ steps:
         
         *Author:* {{commit.author}} ({{commit.email}})
         
-        *Commit:* {{truncate commit.sha 8}}
+        *Commit:* [{{truncate commit.sha 8}}]({{commit.link}})
         
         *Message:* {{commit.message}}
         
