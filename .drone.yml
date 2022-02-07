@@ -3,7 +3,7 @@ type: docker
 name: defalue
 
 steps:
-  - name: build
+  - name: build app
     image: maven:3.8.4-jdk-11
     volumes:
       - name: maven-build
@@ -12,7 +12,6 @@ steps:
         path: /root/.m2
     commands:
       - mvn clean package
-      - ls -al
       - cp target/*.jar /app/build
 
   - name: send telegram notification
@@ -24,21 +23,21 @@ steps:
         from_secret: USER_ID
       format: html
       message: >
-        <b>Repo Info:</b> <br />
-        {{repo.name}}@{{commit.branch}} <br />
-        <b>Author Info:</b> <br />
-        {{commit.author}} ({{commit.email}}) <br />
-        <b>Commit:</b> <br />
-        {{truncate commit.sha 8}} <br />
-        <b>Commit Message:</b> <br />
-        {{commit.message}} <br />
-        <b>Build Number:</b> <br />
-        {{build.number}} <br />
-        <b>Since:</b> <br />
-        {{date build.started}} <br />
-        <b>Build Time:</b> <br />
-        {{since build.started}} <br />
-        <b>Result:</b> <br />
+        <b>Repo Info:\n</b>
+        {{repo.name}}@{{commit.branch}}\n
+        <b>Author Info:\n</b>
+        {{commit.author}} ({{commit.email}})\n
+        <b>Commit:\n</b>
+        {{truncate commit.sha 8}}\n
+        <b>Commit Message:\n</b>
+        {{commit.message}}\n
+        <b>Build Number:\n</b>
+        {{build.number}}\n
+        <b>Since:\n</b>
+        {{datetime build.started}}\n
+        <b>Build Time:\n</b>
+        {{since build.started}}\n
+        <b>Result:\n</b>
         {{#success build.status}}
         Succeeded. Good job.
         {{else}}
