@@ -14,6 +14,19 @@ steps:
       - mvn clean package
       - cp target/*.jar /app/build
 
+  - name: build image
+    image: maven:3.8.4-jdk-11
+    volumes:
+      - name: maven-build
+        path: /app/build
+      - name: maven-cache
+        path: /root/.m2
+      - name: docker-sock
+        path: /var/run/docker.sock
+    commands:
+      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=xmuu/drone-ci-demo
+      - docker images
+
   - name: send telegram notification
     image: appleboy/drone-telegram
     settings:
@@ -46,3 +59,6 @@ volumes:
   - name: maven-cache
     host:
       path: /home/ubuntu/DroneVolumes/maven/cache
+  - name: docker-sock
+    host:
+      path: /var/run/docker.sock
