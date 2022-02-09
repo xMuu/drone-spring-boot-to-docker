@@ -37,7 +37,7 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - docker login registry.xmuu.dev -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
+      - docker login registry.xmuu.dev -u $username -p $username
       - docker push xmuu/drone-ci-demo
 
   - name: send telegram notification
