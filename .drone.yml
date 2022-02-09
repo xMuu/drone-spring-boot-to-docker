@@ -29,9 +29,9 @@ steps:
   - name: push image
     image: maven:3.8.4-jdk-11
     environment:
-      - username:
+      username:
         from_secret: REGISTRY_USERNAME
-      - password:
+      password:
         from_secret: REGISTRY_PASSWORD
     volumes:
       - name: docker-sock
