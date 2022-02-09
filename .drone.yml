@@ -16,6 +16,9 @@ steps:
 
   - name: build image
     image: maven:3.8.4-jdk-11
+    environment:
+      registry:
+        from_secret: REGISTRY_URL
     volumes:
       - name: maven-build
         path: /app/build
@@ -24,7 +27,7 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=xmuu/drone-ci-demo
+      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo
 
   - name: push image
     image: docker:20.10.6
