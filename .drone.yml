@@ -39,7 +39,7 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - docker login $registry -u $username -p $username
+      - docker login $registry -u $username -p $password
       - docker push $registry:xmuu/drone-ci-demo
 
   - name: send telegram notification
