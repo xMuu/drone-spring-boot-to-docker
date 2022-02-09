@@ -25,7 +25,20 @@ steps:
         path: /var/run/docker.sock
     commands:
       - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=xmuu/drone-ci-demo
-      - docker images
+
+  - name: push image
+    image: maven:3.8.4-jdk-11
+    environment:
+      - username:
+        from_secret: REGISTRY_USERNAME
+      - password:
+        from_secret: REGISTRY_PASSWORD
+    volumes:
+      - name: docker-sock
+        path: /var/run/docker.sock
+    commands:
+      - docker login registry.xmuu.dev -u $REGISTRY_USERNAME -p $REGISTRY_PASSWORD
+      - docker push xmuu/drone-ci-demo
 
   - name: send telegram notification
     image: appleboy/drone-telegram
