@@ -33,12 +33,14 @@ steps:
         from_secret: REGISTRY_USERNAME
       password:
         from_secret: REGISTRY_PASSWORD
+      registry:
+        from_secret: REGISTRY_URL
     volumes:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - docker login registry.xmuu.dev -u $username -p $username
-      - docker push xmuu/drone-ci-demo
+      - docker login $registry -u $username -p $username
+      - docker push $registry:xmuu/drone-ci-demo
 
   - name: send telegram notification
     image: appleboy/drone-telegram
