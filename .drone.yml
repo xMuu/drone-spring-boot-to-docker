@@ -6,8 +6,8 @@ steps:
   - name: build image
     image: maven:3.8.4-jdk-11
     environment:
-      registry:
-        from_secret: REGISTRY_URL
+      DOCKER_REGISTRY:
+        from_secret: docker_registry_url
     volumes:
       - name: maven-build
         path: /app/build
@@ -16,31 +16,31 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo
+      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$DOCKER_REGISTRY/xmuu/drone-ci-demo
 
   - name: push image
     image: docker:20.10.6
     environment:
-      username:
-        from_secret: REGISTRY_USERNAME
-      password:
-        from_secret: REGISTRY_PASSWORD
-      registry:
-        from_secret: REGISTRY_URL
+      DOCKER_REGISTRY:
+        from_secret: docker_registry_url
+      DOCKER_USERNAME:
+        from_secret: docker_registry_username
+      DOCKER_PASSWORD:
+        from_secret: docker_registry_password
     volumes:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - docker login $registry -u $username -p $password
-      - docker push $registry/xmuu/drone-ci-demo
+      - docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - docker push $DOCKER_REGISTRY/xmuu/drone-ci-demo
 
   - name: send telegram notification
     image: appleboy/drone-telegram
     settings:
       token:
-        from_secret: BOT_TOKEN
+        from_secret: tg_bot_token
       to:
-        from_secret: USER_ID
+        from_secret: tg_user_id
       disable.webpage.preview: false
       message: >
         *Build #{{build.number}}* of `{{repo.namespace}}/{{repo.name}}`
