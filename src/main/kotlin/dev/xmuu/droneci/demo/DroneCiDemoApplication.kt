@@ -8,4 +8,5 @@ class DroneCiDemoApplication
 
 fun main(args: Array<String>) {
     runApplication<DroneCiDemoApplication>(*args)
+
 }

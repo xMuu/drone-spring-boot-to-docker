@@ -52,9 +52,4 @@ public class TGUtil {
         logger.info("TG sendMessage result: {}", result);
     }
 
-    @PostConstruct
-    public void sendOnBoot() {
-        sendMessage("Updated!!! Drone CI Demo is up and running!");
-    }
-
 }
