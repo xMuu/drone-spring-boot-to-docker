@@ -16,7 +16,7 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo
+      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo:ci-$DRONE_BUILD_NUMBER
 
 #  - name: push image
 #    image: docker:20.10.6
