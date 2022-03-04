@@ -19,7 +19,7 @@ class DroneCiDemoRunner : ApplicationRunner{
     private lateinit var tgUtil : TGUtil
 
     override fun run(args: ApplicationArguments?) {
-        tgUtil.sendMessage("Updated!!! Drone CI Demo is up and running!")
+        tgUtil.sendMessage("远程服务更新成功！")
     }
 
 }
