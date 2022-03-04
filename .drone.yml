@@ -3,17 +3,6 @@ type: docker
 name: defalue
 
 steps:
-#  - name: build app
-#    image: maven:3.8.4-jdk-11
-#    volumes:
-#      - name: maven-build
-#        path: /app/build
-#      - name: maven-cache
-#        path: /root/.m2
-#    commands:
-#      - mvn clean package
-#      - cp target/*.jar /app/build
-
   - name: build image
     image: maven:3.8.4-jdk-11
     environment:
