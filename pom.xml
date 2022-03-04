@@ -15,6 +15,7 @@
     <description>DroneCIDemo</description>
     <properties>
         <java.version>11</java.version>
+        <skipTests>true</skipTests>
         <kotlin.version>1.6.10</kotlin.version>
     </properties>
     <dependencies>
