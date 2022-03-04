@@ -16,7 +16,7 @@ steps:
       - name: docker-sock
         path: /var/run/docker.sock
     commands:
-      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo:ci-$DRONE_BUILD_NUMBER
+      - mvn clean spring-boot:build-image -Dspring-boot.build-image.imageName=$registry/xmuu/drone-ci-demo
 
   - name: push image
     image: docker:20.10.6
@@ -32,7 +32,7 @@ steps:
         path: /var/run/docker.sock
     commands:
       - docker login $registry -u $username -p $password
-      - docker push $registry/xmuu/drone-ci-demo:ci-$DRONE_BUILD_NUMBER
+      - docker push $registry/xmuu/drone-ci-demo
 
   - name: send telegram notification
     image: appleboy/drone-telegram
