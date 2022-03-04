@@ -54,7 +54,7 @@ public class TGUtil {
 
     @PostConstruct
     public void sendOnBoot() {
-        sendMessage("Drone CI Demo is up and running!");
+        sendMessage("Updated!!! Drone CI Demo is up and running!");
     }
 
 }
